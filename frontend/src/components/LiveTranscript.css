@@ -1,0 +1,151 @@
+/* Live Transcript */
+.live-transcript {
+  margin-top: 0.5rem;
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--warning);
+  padding: 0.85rem 1rem;
+  animation: thread-enter 0.15s ease-out;
+}
+
+.transcript-connecting {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.transcript-spinner {
+  animation: transcript-spin 1s linear infinite;
+}
+
+@keyframes transcript-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Transcript list */
+.transcript-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+}
+
+.transcript-entry {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.82rem;
+}
+
+.transcript-entry:last-child {
+  border-bottom: none;
+}
+
+.transcript-agent {
+  border-left: 2px solid var(--success);
+  padding-left: 0.75rem;
+}
+
+.transcript-customer {
+  border-left: 2px solid #326891;
+  padding-left: 0.75rem;
+}
+
+.transcript-role {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.transcript-text {
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+/* Status badges */
+.transcript-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 500;
+  padding: 0.1rem 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.transcript-status-connecting {
+  color: var(--text-muted);
+}
+
+.transcript-status-active {
+  color: var(--success);
+}
+
+.transcript-status-complete {
+  color: var(--text-muted);
+}
+
+.transcript-status-failed {
+  color: var(--danger);
+}
+
+/* Outcome */
+.transcript-outcome {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  font-size: 0.82rem;
+}
+
+.outcome-success {
+  border-color: var(--success);
+}
+
+.outcome-success svg {
+  color: var(--success);
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.outcome-failed {
+  border-color: var(--danger);
+}
+
+.outcome-failed svg {
+  color: var(--danger);
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.outcome-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.outcome-title {
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+.outcome-summary {
+  color: var(--text-secondary);
+  line-height: 1.5;
+  font-size: 0.78rem;
+}
+
+.outcome-savings {
+  font-size: 0.75rem;
+  color: var(--success);
+  font-weight: 500;
+}

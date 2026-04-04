@@ -1,0 +1,209 @@
+/* Wallet Connection */
+.wallet-connection {
+  margin-bottom: 2rem;
+  border: 1px solid var(--border);
+  background: var(--bg-primary);
+  transition: border-color var(--duration-normal) ease,
+              box-shadow var(--duration-normal) ease;
+}
+
+.wallet-connection:hover {
+  border-color: var(--border-light);
+  box-shadow: var(--shadow-md);
+}
+
+.wallet-connected {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+}
+
+.wallet-check-icon {
+  color: var(--success);
+  flex-shrink: 0;
+}
+
+.wallet-connected-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.wallet-connected-label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.wallet-address {
+  font-family: 'DM Sans', monospace;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  word-break: break-all;
+  letter-spacing: 0.02em;
+}
+
+.wallet-connect-prompt {
+  padding: 1.25rem;
+}
+
+.wallet-prompt-text {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.wallet-prompt-text svg {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.wallet-prompt-heading {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.15rem;
+}
+
+.wallet-prompt-desc {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.wallet-connect-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.wallet-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  font-size: 0.82rem;
+  outline: none;
+  transition: border-color var(--duration-normal) var(--ease-spring),
+              box-shadow var(--duration-normal) var(--ease-spring),
+              background var(--duration-normal) var(--ease-spring);
+}
+
+.wallet-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-glow-ring);
+  background: var(--bg-primary);
+}
+
+/* Wallet Grid */
+.wallet-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2rem;
+}
+
+.wallet-balance,
+.wallet-transactions {
+  min-width: 0;
+}
+
+.panel-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--text-primary);
+  margin-bottom: 0;
+}
+
+.panel-header h2 {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.balance-figure {
+  padding: 1.25rem 0;
+}
+
+.balance-amount {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+/* Transactions Table */
+.tx-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tx-table th {
+  text-align: left;
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tx-table td {
+  padding: 0.65rem 0.5rem;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.82rem;
+  transition: background var(--duration-fast) ease;
+}
+
+.tx-table tbody tr {
+  transition: background var(--duration-fast) ease;
+}
+
+.tx-table tbody tr:hover {
+  background: var(--bg-secondary);
+}
+
+.tx-table th:first-child,
+.tx-table td:first-child {
+  padding-left: 0;
+}
+
+.tx-amount {
+  font-weight: 600;
+}
+
+.cell-muted {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+/* Empty State */
+.empty-state {
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+/* Status Tags */
+.status-tag {
+  font-size: 0.68rem;
+  font-weight: 500;
+  padding: 0.15rem 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.status-tag.status-confirmed { border-color: var(--success); color: var(--success); }
+.status-tag.status-pending { border-color: var(--warning); color: var(--warning); }
+.status-tag.status-processing { border-color: #326891; color: #326891; }
+.status-tag.status-failed { border-color: var(--danger); color: var(--danger); }

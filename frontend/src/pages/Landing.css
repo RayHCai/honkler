@@ -1,0 +1,214 @@
+/* ── Landing page ── */
+.landing-page {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(
+    170deg,
+    #f7f6f2 0%,
+    #f0efe8 30%,
+    #e8ece4 60%,
+    #dce6da 100%
+  );
+  overflow: hidden;
+}
+
+/* ── Background layer ── */
+.landing-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ── Falling feathers ── */
+.landing-feather {
+  position: absolute;
+  left: var(--feather-x);
+  top: -30px;
+  width: var(--feather-size);
+  height: calc(var(--feather-size) * 2);
+  color: rgba(26, 26, 26, 0.07);
+  animation: feather-fall var(--feather-duration) var(--feather-delay) linear infinite;
+  will-change: transform;
+}
+
+.landing-feather svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes feather-fall {
+  0% {
+    transform: translateY(-30px) rotate(var(--feather-rotation)) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(50vh) rotate(calc(var(--feather-rotation) + 180deg)) translateX(40px);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(calc(var(--feather-rotation) + 360deg)) translateX(-20px);
+    opacity: 0;
+  }
+}
+
+/* ── Pond area at bottom ── */
+.landing-pond {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(176, 210, 194, 0.15) 40%,
+    rgba(156, 200, 180, 0.25) 100%
+  );
+}
+
+.landing-ripple {
+  position: absolute;
+  bottom: 20px;
+  left: var(--ripple-x);
+  width: var(--ripple-size);
+  height: calc(var(--ripple-size) * 0.3);
+  border: 1.5px solid rgba(26, 26, 26, 0.06);
+  border-radius: 50%;
+  animation: ripple-expand 4s var(--ripple-delay) ease-out infinite;
+}
+
+@keyframes ripple-expand {
+  0% {
+    transform: scale(0.3) translateX(-50%);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.8) translateX(-50%);
+    opacity: 0;
+  }
+}
+
+/* ── HONK bubbles ── */
+.landing-honk {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: rgba(232, 89, 12, 0.12);
+  font-weight: 400;
+  letter-spacing: 2px;
+  animation: honk-pop 2.5s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes honk-pop {
+  0% {
+    transform: scale(0.5) translateY(0);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(1.2) translateY(-10px);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1) translateY(-20px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.8) translateY(-60px);
+    opacity: 0;
+  }
+}
+
+/* ── Content layer ── */
+.landing-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 48px 80px;
+  min-width: 480px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.04),
+    0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.landing-logo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  animation: logo-float 4s ease-in-out infinite;
+}
+
+@keyframes logo-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.landing-name {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.landing-tagline {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: -8px;
+}
+
+.landing-login-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 48px;
+  background: var(--accent);
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s, transform 0.15s;
+  margin-top: 8px;
+}
+
+.landing-login-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+/* ── Reduce motion for accessibility ── */
+@media (prefers-reduced-motion: reduce) {
+  .landing-feather,
+  .landing-ripple,
+  .landing-honk,
+  .landing-logo {
+    animation: none !important;
+  }
+  .landing-feather {
+    display: none;
+  }
+  .landing-honk {
+    display: none;
+  }
+}

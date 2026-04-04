@@ -1,0 +1,144 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String       @id @default(uuid())
+  email         String       @unique
+  passwordHash  String       @map("password_hash")
+  solanaAddress String?      @map("solana_address")
+  displayName   String?      @map("display_name")
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+
+  documents   Document[]
+  chats       Chat[]
+  settlements Settlement[]
+
+  @@map("users")
+}
+
+model Document {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  fileName  String   @map("file_name")
+  fileType  String   @map("file_type")
+  fileSize  Int      @map("file_size")
+  filePath  String   @map("file_path")
+  fileUrl   String   @map("file_url")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chat Chat?
+
+  @@index([userId])
+  @@map("documents")
+}
+
+model Chat {
+  id           String     @id @default(uuid())
+  userId       String     @map("user_id")
+  documentId   String?    @unique @map("document_id")
+  status       ChatStatus @default(DRAFT)
+  companyName  String     @map("company_name")
+  serviceType  String     @map("service_type")
+  companyPhone String?    @map("company_phone")
+  currentPrice    Decimal?   @map("current_price") @db.Decimal(10, 2)
+  targetPrice     Decimal?   @map("target_price") @db.Decimal(10, 2)
+  negotiationPlan Json?      @map("negotiation_plan")
+  createdAt       DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  document Document? @relation(fields: [documentId], references: [id])
+  messages Message[]
+  callLogs CallLog[]
+
+  @@index([userId])
+  @@map("chats")
+}
+
+enum ChatStatus {
+  DRAFT
+  RESEARCHING
+  READY
+  CALLING
+  COMPLETED
+  FAILED
+}
+
+model Message {
+  id        String      @id @default(uuid())
+  chatId    String      @map("chat_id")
+  role      MessageRole
+  content   String
+  createdAt DateTime    @default(now()) @map("created_at")
+
+  chat Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
+
+  @@index([chatId])
+  @@map("messages")
+}
+
+enum MessageRole {
+  USER
+  ASSISTANT
+  SYSTEM
+  AGENT
+}
+
+model CallLog {
+  id            String     @id @default(uuid())
+  chatId        String     @map("chat_id")
+  twilioCallSid String?    @unique @map("twilio_call_sid")
+  status        CallStatus @default(INITIATED)
+  recordingUrl  String?    @map("recording_url")
+  transcript    String?
+  duration      Int?
+  outcome       String?
+  savingsAmount Decimal?   @map("savings_amount") @db.Decimal(10, 2)
+  createdAt     DateTime   @default(now()) @map("created_at")
+
+  chat       Chat        @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  settlement Settlement?
+
+  @@index([chatId])
+  @@map("call_logs")
+}
+
+enum CallStatus {
+  INITIATED
+  RINGING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  NO_ANSWER
+}
+
+model Settlement {
+  id                String           @id @default(uuid())
+  callLogId         String           @unique @map("call_log_id")
+  userId            String           @map("user_id")
+  amount            Decimal          @db.Decimal(10, 2)
+  solanaTxSignature String?          @map("solana_tx_signature")
+  status            SettlementStatus @default(PENDING)
+  createdAt         DateTime         @default(now()) @map("created_at")
+
+  callLog CallLog @relation(fields: [callLogId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("settlements")
+}
+
+enum SettlementStatus {
+  PENDING
+  PROCESSING
+  CONFIRMED
+  FAILED
+}

@@ -1,0 +1,521 @@
+/* ── Full-height chat page layout ─────────────────────────── */
+.chat-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.chat-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem 2.5rem 1rem;
+  animation: page-enter var(--duration-slow) var(--ease-out-expo) both;
+}
+
+/* Back Link */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  transition: all var(--duration-normal) var(--ease-spring);
+  letter-spacing: 0.01em;
+}
+
+.back-link:hover {
+  color: var(--text-primary);
+  gap: 0.4rem;
+}
+
+.loading-text {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ── Chat Thread ─────────────────────────── */
+.chat-thread {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ── Chat Messages ─────────────────────────── */
+.chat-message {
+  padding: 0.65rem 0.85rem;
+  font-size: 0.82rem;
+  border-left: 2px solid transparent;
+  margin-bottom: 0.25rem;
+}
+
+.chat-message-user {
+  border-left-color: var(--text-primary);
+  background: var(--bg-secondary);
+}
+
+.chat-message-assistant {
+  border-left-color: #326891;
+}
+
+.chat-message-system {
+  border-left-color: var(--text-muted);
+}
+
+.chat-message-agent {
+  border-left-color: var(--success);
+}
+
+.chat-message-role {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.chat-message-body {
+  line-height: 1.6;
+  white-space: pre-wrap;
+  color: var(--text-primary);
+}
+
+.chat-message-time {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 0.15rem;
+}
+
+/* ── Details Card (inline after research) ─────────────────────────── */
+.chat-details-card {
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--text-primary);
+  background: var(--bg-primary);
+  padding: 0.5rem 0.85rem;
+  margin-top: 0.25rem;
+  font-size: 0.82rem;
+  animation: thread-enter 0.15s ease-out;
+}
+
+.chat-details-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.chat-details-row:last-child {
+  border-bottom: none;
+}
+
+.chat-details-key {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+}
+
+.chat-details-val {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* ── Permission Prompt (Claude Code-style) ─────────────────────────── */
+.chat-permission {
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  padding: 1rem 1.25rem;
+  margin-top: 0.5rem;
+  animation: thread-enter 0.15s ease-out;
+}
+
+.chat-permission-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.chat-permission-header strong {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.chat-permission-desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-top: 0.35rem;
+  line-height: 1.5;
+}
+
+.chat-permission-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+.chat-permission-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+}
+
+.chat-permission-warn {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── Input Bar ─────────────────────────── */
+.chat-input-bar {
+  flex-shrink: 0;
+  padding: 0.75rem 2.5rem 1.25rem;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-primary);
+}
+
+.chat-input-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem 0.5rem 0.5rem 0.85rem;
+  background: var(--bg-primary);
+  transition: border-color var(--duration-fast) ease,
+              box-shadow var(--duration-fast) ease;
+}
+
+.chat-input-wrapper:focus-within {
+  border-color: var(--text-muted);
+  box-shadow: 0 0 0 2px var(--accent-glow-ring);
+}
+
+.chat-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  resize: none;
+  min-height: 1.5em;
+  max-height: 160px;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+.chat-input::placeholder {
+  color: var(--text-muted);
+}
+
+.chat-input:focus {
+  box-shadow: none;
+}
+
+.chat-send-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-md);
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  flex-shrink: 0;
+  transition: opacity var(--duration-fast) ease;
+}
+
+.chat-send-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.chat-send-btn:not(:disabled):hover {
+  opacity: 0.8;
+  transform: none;
+  box-shadow: none;
+}
+
+.chat-send-btn:not(:disabled):active {
+  transform: scale(0.95);
+  box-shadow: none;
+}
+
+/* ── Thread animation ─────────────────────────── */
+@keyframes thread-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Shared utilities ─────────────────────────── */
+.btn-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 0.45rem 0.85rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all var(--duration-fast) ease;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+.detail-error {
+  border-left: 2px solid var(--danger);
+  background: var(--bg-secondary);
+  color: var(--danger);
+  padding: 0.55rem 1rem;
+  font-size: 0.82rem;
+  margin-top: 0.5rem;
+}
+
+/* ── Call History (inline in thread) ─────────────────────────── */
+.chat-call-history {
+  margin-top: 0.5rem;
+  animation: thread-enter 0.15s ease-out;
+}
+
+.chat-call-history-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  padding-bottom: 0.5rem;
+}
+
+/* ── Call Log Card ─────────────────────────── */
+.call-log-card {
+  border: 1px solid var(--border);
+  background: var(--bg-primary);
+  margin-bottom: 0.5rem;
+  animation: thread-enter 0.15s ease-out;
+}
+
+.call-log-card-has-outcome {
+  border-left: 2px solid var(--success);
+}
+
+.call-log-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+}
+
+.call-log-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.call-log-icon { flex-shrink: 0; }
+.call-log-icon-success { color: var(--success); }
+.call-log-icon-failed { color: var(--danger); }
+.call-log-icon-active { color: var(--warning); }
+
+.call-log-duration {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.call-log-date {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* ── Outcome section ─────────────────────────── */
+.call-log-outcome {
+  padding: 0.65rem 0.85rem;
+}
+
+.call-log-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.call-log-table td {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+}
+
+.call-log-table tr:last-child td {
+  border-bottom: none;
+}
+
+.call-log-table-key {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  width: 100px;
+  padding-right: 1rem;
+}
+
+.call-log-table-val {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.call-log-table-val.val-success {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.call-log-table-val.val-failed {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* ── Summary & Next Steps ─────────────────────────── */
+.call-log-summary,
+.call-log-next-steps {
+  margin-top: 0.65rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.call-log-summary-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+}
+
+.call-log-summary p {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.call-log-next-steps ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.call-log-next-steps li {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  padding-left: 0.85rem;
+  position: relative;
+}
+
+.call-log-next-steps li::before {
+  content: '\2022';
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+}
+
+.call-log-raw-outcome {
+  padding: 0.5rem 0.85rem;
+}
+
+.call-log-meta {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+/* ── Transcript toggle ─────────────────────────── */
+.call-transcript {
+  margin: 0;
+  border-top: 1px solid var(--border-light);
+  padding: 0.5rem 0.85rem;
+}
+
+.call-transcript summary {
+  font-size: 0.75rem;
+  color: var(--accent-subtle);
+  cursor: pointer;
+  font-weight: 500;
+  transition: color var(--duration-fast) ease;
+}
+
+.call-transcript summary:hover {
+  color: var(--accent-hover);
+}
+
+.call-transcript p {
+  margin-top: 0.35rem;
+  white-space: pre-wrap;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  padding-left: 0.5rem;
+  border-left: 1px solid var(--border-light);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* ── Status Tags ─────────────────────────── */
+.status-tag {
+  font-size: 0.68rem;
+  font-weight: 500;
+  padding: 0.15rem 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.status-tag.status-draft { border-color: var(--border); color: var(--text-muted); }
+.status-tag.status-researching { border-color: #326891; color: #326891; }
+.status-tag.status-ready { border-color: var(--success); color: var(--success); }
+.status-tag.status-calling { border-color: var(--warning); color: var(--warning); }
+.status-tag.status-completed { border-color: var(--success); color: var(--success); }
+.status-tag.status-failed { border-color: var(--danger); color: var(--danger); }
+
+/* ── Panel header (used by LiveTranscript) ─────────────────────────── */
+.panel-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--text-primary);
+  margin-bottom: 0;
+}
+
+.panel-header h2 {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
