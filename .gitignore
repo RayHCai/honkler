@@ -42,3 +42,6 @@ Thumbs.db
 .claude/
 CLAUDE.md
 AGENTS.md
+
+# Runtime uploads
+api/uploads/
